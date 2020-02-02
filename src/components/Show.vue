@@ -7,19 +7,19 @@
         md="5"
         sm="7"
         cols="12"
-        v-for="movie in movies"
-        :key="movie.id"
+        v-for="show in shows"
+        :key="show.id"
         class="column"
       >
         <img
-          v-bind:src="'https://image.tmdb.org/t/p/w300/' + movie.poster_path"
+          v-bind:src="'https://image.tmdb.org/t/p/w300/' + show.poster_path"
           alt="poster image"
           @error="replaceImage"
         />
-        <h2>{{movie.title}}</h2>
-        <p>{{movie.release_date | TransformDate}}</p>
-        <p v-if="movie.overview.lenghth <= 150">{{movie.overview}}</p>
-        <p v-else>{{movie.overview.substring(0,150)+'...'}}</p>
+        <h2>{{show.original_name}}</h2>
+        <p>{{show.first_air_date | TransformDate}}</p>
+        <p v-if="show.overview.lenghth <= 150">{{show.overview}}</p>
+        <p v-else>{{show.overview.substring(0,150)+'...'}}</p>
       </v-col>
     </v-row>
   </v-container>
@@ -27,9 +27,9 @@
 
 <script>
 export default {
-  name: "Movie",
+  name: "Show",
   props: {
-    movies: {
+    shows: {
       type: Array,
       required: true
     },
@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style scoped>
+img {
+  max-width: 300px;
+}
+
 @media screen and (max-width: 428px) {
   .column {
     max-width: 300px;

@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  name: "SearchMovies"
+  name: "SearchMovies",
+  data: () => ({})
 };
 </script>
 

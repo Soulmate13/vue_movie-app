@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-content>
+    <v-content class="mt-5 ml-3">
       <router-view></router-view>
       <nav-application></nav-application>
     </v-content>

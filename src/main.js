@@ -10,6 +10,7 @@ import Routes from "./routes";
 
 Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
+Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0)
 
 const router = new VueRouter({
   routes: Routes,

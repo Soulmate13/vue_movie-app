@@ -1,8 +1,15 @@
 <template>
-  <v-app>
+  <div>
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list dense>
-        <v-list-item v-for="link in links" :key="link.route" link :to="link.route" exact>
+        <v-list-item
+          v-for="link in links"
+          :key="link.route"
+          link
+          :to="link.route"
+          exact
+          @click.native="$scrollToTop"
+        >
           <v-list-item-action>
             <v-icon>{{link.icon}}</v-icon>
           </v-list-item-action>
@@ -14,11 +21,11 @@
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="ml-2" />
       <v-toolbar-title>Vue Movie App</v-toolbar-title>
       <v-icon right>movie</v-icon>
     </v-app-bar>
-  </v-app>
+  </div>
 </template>
 
 <script>

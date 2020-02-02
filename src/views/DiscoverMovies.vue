@@ -1,19 +1,30 @@
 <template>
   <v-app>
-    <h1>Discover Movies</h1>
-    <app-discover></app-discover>
-    <app-movie v-bind:movies="movies" v-bind:pages="pages"></app-movie>
+    <v-container>
+      <h1>Discover Movies</h1>
+      <v-row>
+        <v-col cols="12" xl="1">
+          <span>Year</span>
+          <v-select :items="years" v-model="yearnum"></v-select>
+        </v-col>
+      </v-row>
+      <app-movie v-bind:movies="movies" v-bind:pages="pages"></app-movie>
+      <v-pagination
+        :length="pages"
+        total-visible="7"
+        v-model="pagenum"
+        @click.native="$scrollToTop"
+      ></v-pagination>
+    </v-container>
   </v-app>
 </template>
 
 <script>
-import Discover from "../components/Discover";
 import Movie from "../components/Movie";
 
 export default {
   name: "DiscoverMovies",
   components: {
-    "app-discover": Discover,
     "app-movie": Movie
   },
   data: () => ({
@@ -28,7 +39,8 @@ export default {
     othersettings: `&sort_by=popularity.desc&language=en-US&include_adult=false&include_video`,
     movies: [],
     discoverurl: "",
-    pages: Number
+    pages: 1,
+    loaded: false
   }),
   methods: {
     formUrl: function() {
@@ -51,10 +63,34 @@ export default {
         console.log(this.movies);
         console.log(this.pages);
       });
+    },
+    nextPage: function() {
+      this.pagenum += 1;
+    },
+    lastPage: function() {
+      this.pagenum -= 1;
     }
   },
   created: function() {
     this.fetchUrl();
+  },
+  watch: {
+    pagenum: function() {
+      this.fetchUrl();
+    },
+    yearnum: function() {
+      this.pagenum = 1;
+      this.fetchUrl();
+    }
+  },
+  computed: {
+    years() {
+      const year = new Date().getFullYear();
+      return Array.from(
+        { length: year - 1900 },
+        (value, index) => 1901 + index
+      ).reverse();
+    }
   }
 };
 </script>
