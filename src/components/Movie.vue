@@ -11,10 +11,12 @@
         :key="movie.id"
         class="column"
       >
-        <img
+        <v-img
           v-bind:src="'https://image.tmdb.org/t/p/w300/' + movie.poster_path"
           alt="poster image"
           @error="replaceImage"
+          max-width="300px"
+          lazy-src="https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg"
         />
         <h2>{{movie.title}}</h2>
         <p>{{movie.release_date | TransformDate}}</p>
@@ -60,6 +62,10 @@ export default {
 </script>
 
 <style scoped>
+img {
+  max-width: 280px;
+}
+
 @media screen and (max-width: 428px) {
   .column {
     max-width: 300px;

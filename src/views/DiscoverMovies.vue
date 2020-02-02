@@ -32,7 +32,7 @@ export default {
     apikey: "api_key=55a0220c1741f333a9a3a558c749b920",
     page: "&page=",
     pagenum: 1,
-    year: "&year=",
+    year: "&primary_release_year=",
     yearnum: Number,
     genre: "&with_genres=",
     genres: [],
