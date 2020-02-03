@@ -18,6 +18,7 @@
       </v-row>
       <app-show v-bind:shows="shows" v-bind:pages="pages"></app-show>
       <v-pagination
+        v-if="pagination"
         :length="pages"
         total-visible="7"
         v-model="pagenum"
@@ -145,7 +146,8 @@ export default {
         value: "first_air_date.asc",
         text: "First Air Date Ascending"
       }
-    ]
+    ],
+    pagination: false
   }),
   methods: {
     formUrl: function() {
@@ -164,11 +166,13 @@ export default {
     },
     fetchUrl: function() {
       this.formUrl();
+      this.pagination = false;
       this.axios.get(this.discoverurl).then(response => {
         this.shows = response.data.results;
         this.pages = response.data.total_pages;
-        console.log(this.shows);
-        console.log(this.pages);
+        if (this.shows.length > 0) {
+          this.pagination = true;
+        }
       });
     },
     nextPage: function() {

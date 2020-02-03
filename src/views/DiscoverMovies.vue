@@ -18,6 +18,7 @@
       </v-row>
       <app-movie v-bind:movies="movies" v-bind:pages="pages"></app-movie>
       <v-pagination
+        v-if="pagination"
         :length="pages"
         total-visible="7"
         v-model="pagenum"
@@ -146,7 +147,8 @@ export default {
         value: "primary_release_date.asc",
         text: "Release Date Ascending"
       }
-    ]
+    ],
+    pagination: false
   }),
   methods: {
     formUrl: function() {
@@ -164,10 +166,14 @@ export default {
         this.genres.toString();
     },
     fetchUrl: function() {
+      this.pagination = false;
       this.formUrl();
       this.axios.get(this.discoverurl).then(response => {
         this.movies = response.data.results;
         this.pages = response.data.total_pages;
+        if (this.movies.length > 0) {
+          this.pagination = true;
+        }
       });
     },
     nextPage: function() {
