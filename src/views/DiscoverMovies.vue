@@ -168,8 +168,6 @@ export default {
       this.axios.get(this.discoverurl).then(response => {
         this.movies = response.data.results;
         this.pages = response.data.total_pages;
-        console.log(this.movies);
-        console.log(this.pages);
       });
     },
     nextPage: function() {
