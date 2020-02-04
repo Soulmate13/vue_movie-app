@@ -205,10 +205,12 @@ export default {
   computed: {
     years() {
       const year = new Date().getFullYear();
-      return Array.from(
+      let array = Array.from(
         { length: year - 1900 },
         (value, index) => 1901 + index
       ).reverse();
+      array.unshift("Not specified");
+      return array;
     }
   }
 };

@@ -49,7 +49,8 @@ export default {
     discoverurl: "",
     pages: 0,
     query: [],
-    pagination: false
+    pagination: false,
+    favouriteshows: []
   }),
   methods: {
     formUrl: function() {
@@ -88,17 +89,21 @@ export default {
       this.fetchUrl();
     },
     yearnum: function() {
-      this.pagenum = 1;
-      this.fetchUrl();
+      if (this.query == !undefined) {
+        this.pagenum = 1;
+        this.fetchUrl();
+      }
     }
   },
   computed: {
     years() {
       const year = new Date().getFullYear();
-      return Array.from(
+      let array = Array.from(
         { length: year - 1900 },
         (value, index) => 1901 + index
       ).reverse();
+      array.unshift("Not specified");
+      return array;
     }
   }
 };

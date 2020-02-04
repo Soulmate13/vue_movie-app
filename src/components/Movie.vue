@@ -47,18 +47,20 @@ export default {
       required: true
     }
   },
-  data: () => ({
-    color: "success"
-  }),
+  data: () => ({}),
 
   filters: {
     TransformDate(string) {
-      let options = { year: "numeric", month: "long", day: "numeric" };
-      const [year, month, day] = string.split("-");
-      return new Date(year, month - 1, day).toLocaleDateString(
-        "en-US",
-        options
-      );
+      if (string == undefined) {
+        return "Date not found";
+      } else {
+        let options = { year: "numeric", month: "long", day: "numeric" };
+        const [year, month, day] = string.split("-");
+        return new Date(year, month - 1, day).toLocaleDateString(
+          "en-US",
+          options
+        );
+      }
     }
   },
   methods: {

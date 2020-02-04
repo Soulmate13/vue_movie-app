@@ -26,6 +26,9 @@
           size="45"
           rotate="270"
         >{{show.vote_average*10 + '%'}}</v-progress-circular>
+        <v-btn fab @click="favlisttoggle(show.id)">
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
         <p v-if="show.overview.lenghth <= 150">{{show.overview}}</p>
         <p v-else>{{show.overview.substring(0,150)+'...'}}</p>
       </v-col>
@@ -46,16 +49,34 @@ export default {
       required: true
     }
   },
-  data: () => ({}),
+  mounted() {
+    if (localStorage.getItem("favouriteshows")) {
+      try {
+        this.favouriteshows = JSON.parse(
+          localStorage.getItem("favouriteshows")
+        );
+      } catch (e) {
+        localStorage.removeItem("favouriteshows");
+      }
+      console.log(localStorage.getItem("favouriteshows"));
+    }
+  },
+  data: () => ({
+    favouriteshows: []
+  }),
 
   filters: {
     TransformDate(string) {
-      let options = { year: "numeric", month: "long", day: "numeric" };
-      const [year, month, day] = string.split("-");
-      return new Date(year, month - 1, day).toLocaleDateString(
-        "en-US",
-        options
-      );
+      if (string == undefined) {
+        return "Date not found";
+      } else {
+        let options = { year: "numeric", month: "long", day: "numeric" };
+        const [year, month, day] = string.split("-");
+        return new Date(year, month - 1, day).toLocaleDateString(
+          "en-US",
+          options
+        );
+      }
     }
   },
   methods: {
@@ -69,12 +90,50 @@ export default {
       } else if (progress == 0) {
         return "#ccc";
       }
+    },
+    favlisttoggle(_id, btn) {
+      let present = false;
+      let arrayindex = 0;
+      console.log(btn);
+      console.log(_id);
+      for (let i = 0; i < this.favouriteshows.length; i++) {
+        if (_id == this.favouriteshows[i]) {
+          present = true;
+          arrayindex = i;
+        }
+      }
+
+      if (present == false) {
+        this.favouriteshows.push(_id);
+        localStorage.setItem(
+          "favouriteshows",
+          JSON.stringify(this.favouriteshows)
+        );
+        console.log(localStorage.getItem("favouriteshows"));
+      }
+
+      if (present == true) {
+        this.favouriteshows.splice(arrayindex, 1);
+        localStorage.setItem(
+          "favouriteshows",
+          JSON.stringify(this.favouriteshows)
+        );
+        console.log(localStorage.getItem("favouriteshows"));
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+.liked {
+  color: red;
+}
+
+.notliked {
+  color: yellow;
+}
+
 img {
   max-width: 300px;
 }
