@@ -26,6 +26,9 @@
           size="45"
           rotate="270"
         >{{movie.vote_average*10 + '%'}}</v-progress-circular>
+        <v-btn fab @click="toggleId(movie.id)" v-bind:class="isLiked(movie.id)">
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
         <p v-if="movie.overview.lenghth <= 150">{{movie.overview}}</p>
         <p v-else>{{movie.overview.substring(0,150)+'...'}}</p>
       </v-col>
@@ -43,11 +46,24 @@ export default {
       required: true
     },
     pages: {
-      type: Number,
-      required: true
+      type: Number
     }
   },
-  data: () => ({}),
+  created() {
+    if (localStorage.getItem("favouritemovies")) {
+      try {
+        this.favouritemovies = JSON.parse(
+          localStorage.getItem("favouritemovies")
+        );
+      } catch (e) {
+        localStorage.removeItem("favouritemovies");
+      }
+      console.log(localStorage.getItem("favouritemovies"));
+    }
+  },
+  data: () => ({
+    favouritemovies: []
+  }),
 
   filters: {
     TransformDate(string) {
@@ -74,12 +90,65 @@ export default {
       } else if (progress == 0) {
         return "#ccc";
       }
+    },
+    toggleId(_id) {
+      let present = false;
+      let arrayindex = 0;
+      console.log(_id);
+      for (let i = 0; i < this.favouritemovies.length; i++) {
+        if (_id == this.favouritemovies[i]) {
+          present = true;
+          arrayindex = i;
+        }
+      }
+
+      if (present == false) {
+        this.favouritemovies.push(_id);
+        localStorage.setItem(
+          "favouritemovies",
+          JSON.stringify(this.favouritemovies)
+        );
+        console.log(localStorage.getItem("favouritemovies"));
+      }
+
+      if (present == true) {
+        this.favouritemovies.splice(arrayindex, 1);
+        localStorage.setItem(
+          "favouritemovies",
+          JSON.stringify(this.favouritemovies)
+        );
+        console.log(localStorage.getItem("favouritemovies"));
+      }
+    },
+    isLiked(_id) {
+      let present = false;
+      for (let i = 0; i < this.favouritemovies.length; i++) {
+        if (_id == this.favouritemovies[i]) {
+          present = true;
+        }
+      }
+
+      if (present == true) {
+        return "liked";
+      }
+
+      if (present == false) {
+        return "notliked";
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+.liked {
+  color: red;
+}
+
+.notliked {
+  color: grey;
+}
+
 p {
   margin-bottom: 0;
 }

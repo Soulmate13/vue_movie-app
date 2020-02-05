@@ -29,7 +29,7 @@
         <v-btn fab @click="toggleId(show.id)" v-bind:class="isLiked(show.id)">
           <v-icon>mdi-heart</v-icon>
         </v-btn>
-        <p v-if="show.overview.lenghth <= 150">{{show.overview}}</p>
+        <p v-if="show.overview.length <= 150">{{show.overview}}</p>
         <p v-else>{{show.overview.substring(0,150)+'...'}}</p>
       </v-col>
     </v-row>
@@ -45,11 +45,10 @@ export default {
       required: true
     },
     pages: {
-      type: Number,
-      required: true
+      type: Number
     }
   },
-  mounted() {
+  created() {
     if (localStorage.getItem("favouriteshows")) {
       try {
         this.favouriteshows = JSON.parse(
@@ -58,7 +57,7 @@ export default {
       } catch (e) {
         localStorage.removeItem("favouriteshows");
       }
-      console.log(localStorage.getItem("favouriteshows"));
+      // console.log(localStorage.getItem("favouriteshows"));
     }
   },
   data: () => ({
@@ -108,7 +107,7 @@ export default {
           "favouriteshows",
           JSON.stringify(this.favouriteshows)
         );
-        console.log(localStorage.getItem("favouriteshows"));
+        // console.log(localStorage.getItem("favouriteshows"));
       }
 
       if (present == true) {
@@ -117,7 +116,7 @@ export default {
           "favouriteshows",
           JSON.stringify(this.favouriteshows)
         );
-        console.log(localStorage.getItem("favouriteshows"));
+        // console.log(localStorage.getItem("favouriteshows"));
       }
     },
     isLiked(_id) {

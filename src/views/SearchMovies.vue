@@ -101,7 +101,7 @@ export default {
         { length: year - 1900 },
         (value, index) => 1901 + index
       ).reverse();
-      array.unshift("");
+      array.unshift("Not specified");
       return array;
     }
   }
