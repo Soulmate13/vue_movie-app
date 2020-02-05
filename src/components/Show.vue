@@ -26,7 +26,7 @@
           size="45"
           rotate="270"
         >{{show.vote_average*10 + '%'}}</v-progress-circular>
-        <v-btn fab @click="favlisttoggle(show.id)">
+        <v-btn fab @click="toggleId(show.id)" v-bind:class="isLiked(show.id)">
           <v-icon>mdi-heart</v-icon>
         </v-btn>
         <p v-if="show.overview.lenghth <= 150">{{show.overview}}</p>
@@ -91,10 +91,9 @@ export default {
         return "#ccc";
       }
     },
-    favlisttoggle(_id, btn) {
+    toggleId(_id) {
       let present = false;
       let arrayindex = 0;
-      console.log(btn);
       console.log(_id);
       for (let i = 0; i < this.favouriteshows.length; i++) {
         if (_id == this.favouriteshows[i]) {
@@ -120,6 +119,22 @@ export default {
         );
         console.log(localStorage.getItem("favouriteshows"));
       }
+    },
+    isLiked(_id) {
+      let present = false;
+      for (let i = 0; i < this.favouriteshows.length; i++) {
+        if (_id == this.favouriteshows[i]) {
+          present = true;
+        }
+      }
+
+      if (present == true) {
+        return "liked";
+      }
+
+      if (present == false) {
+        return "notliked";
+      }
     }
   }
 };
@@ -131,7 +146,7 @@ export default {
 }
 
 .notliked {
-  color: yellow;
+  color: grey;
 }
 
 img {
