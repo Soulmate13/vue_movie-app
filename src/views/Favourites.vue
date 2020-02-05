@@ -76,10 +76,8 @@ export default {
           )
           .then(response => {
             this.favshowinfo = response.data;
-            console.log(this.favshowsdata);
             this.favshowsdata.push(this.favshowinfo);
           });
-        console.log(this.favshowsdata);
       }
     },
     fetchmovies() {
@@ -94,10 +92,8 @@ export default {
           )
           .then(response => {
             this.favmovieinfo = response.data;
-            console.log(this.favshowsdata);
             this.favmoviesdata.push(this.favmovieinfo);
           });
-        console.log(this.favmoviesdata);
       }
     },
     toggleShows() {

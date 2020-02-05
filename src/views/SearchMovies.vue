@@ -72,8 +72,6 @@ export default {
         if (this.movies.length > 0) {
           this.pagination = true;
         }
-        console.log(this.movies);
-        console.log(this.pages);
       });
     },
     nextPage: function() {

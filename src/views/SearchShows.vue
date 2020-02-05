@@ -73,8 +73,6 @@ export default {
         if (this.shows.length > 0) {
           this.pagination = true;
         }
-        console.log(this.shows);
-        console.log(this.pages);
       });
     },
     nextPage: function() {

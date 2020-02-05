@@ -57,7 +57,6 @@ export default {
       } catch (e) {
         localStorage.removeItem("favouriteshows");
       }
-      // console.log(localStorage.getItem("favouriteshows"));
     }
   },
   data: () => ({
@@ -93,7 +92,6 @@ export default {
     toggleId(_id) {
       let present = false;
       let arrayindex = 0;
-      console.log(_id);
       for (let i = 0; i < this.favouriteshows.length; i++) {
         if (_id == this.favouriteshows[i]) {
           present = true;
@@ -107,7 +105,6 @@ export default {
           "favouriteshows",
           JSON.stringify(this.favouriteshows)
         );
-        // console.log(localStorage.getItem("favouriteshows"));
       }
 
       if (present == true) {
@@ -116,7 +113,6 @@ export default {
           "favouriteshows",
           JSON.stringify(this.favouriteshows)
         );
-        // console.log(localStorage.getItem("favouriteshows"));
       }
     },
     isLiked(_id) {
