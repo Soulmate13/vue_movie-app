@@ -2,8 +2,10 @@
   <v-app>
     <v-container>
       <v-row>
-        <v-col cols="12" xl="1">
+        <v-col cols="12">
           <h1>Discover TV shows</h1>
+        </v-col>
+        <v-col cols="12" xl="1">
           <v-select :items="years" v-model="yearnum" label="Year"></v-select>
         </v-col>
         <v-col cols="12" xl="2">
