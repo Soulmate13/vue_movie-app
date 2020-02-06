@@ -1,19 +1,16 @@
 <template>
   <v-app>
     <v-container>
-      <h1>Discover TV shows</h1>
       <v-row>
         <v-col cols="12" xl="1">
-          <span>Year</span>
-          <v-select :items="years" v-model="yearnum"></v-select>
+          <h1>Discover TV shows</h1>
+          <v-select :items="years" v-model="yearnum" label="Year"></v-select>
         </v-col>
         <v-col cols="12" xl="2">
-          <span>Genres</span>
-          <v-select :items="listofgenres" v-model="genres" multiple clearable></v-select>
+          <v-select :items="listofgenres" v-model="genres" multiple clearable label="Genres"></v-select>
         </v-col>
         <v-col cols="12" xl="2">
-          <span>Sort by:</span>
-          <v-select :items="sortingcriteria" v-model="sortbyvalue"></v-select>
+          <v-select :items="sortingcriteria" v-model="sortbyvalue" label="Other criteria"></v-select>
         </v-col>
       </v-row>
       <app-show v-bind:shows="shows" v-bind:pages="pages"></app-show>

@@ -1,20 +1,19 @@
 <template>
   <v-app>
     <v-container>
-      <h1>Search Movies</h1>
       <v-row>
         <v-col cols="12" xl="1">
-          <span>Year</span>
-          <v-select :items="years" v-model="yearnum"></v-select>
+          <h1>Search Movies</h1>
+          <v-select :items="years" v-model="yearnum" label="Year"></v-select>
         </v-col>
         <v-col cols="12" xl="7">
-          <span>Find a movie</span>
           <v-text-field
             prepend-inner-icon="search"
             v-model="query"
             @keyup.enter="fetchUrl"
             @click:prepend-inner="fetchUrl"
             clearable
+            label="Title"
           ></v-text-field>
         </v-col>
       </v-row>

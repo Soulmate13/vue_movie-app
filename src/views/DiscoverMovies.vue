@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-container>
-      <h1>Discover Movies</h1>
       <v-row>
         <v-col cols="12" xl="1">
+          <h1>Discover Movies</h1>
           <v-select :items="years" v-model="yearnum" label="Year"></v-select>
         </v-col>
         <v-col cols="12" xl="2">

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="true">
     <v-content class="mt-5 ml-3">
       <router-view></router-view>
       <nav-application></nav-application>

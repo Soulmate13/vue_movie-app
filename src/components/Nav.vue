@@ -22,8 +22,9 @@
 
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="ml-2" />
-      <v-toolbar-title>Vue Movie App</v-toolbar-title>
       <v-icon right>movie</v-icon>
+      <v-spacer></v-spacer>
+      <v-switch v-model="$vuetify.theme.dark" hide-details inset label="Dark theme"></v-switch>
     </v-app-bar>
   </div>
 </template>
@@ -49,3 +50,11 @@ export default {
   })
 };
 </script>
+
+<style scoped>
+@media screen and (max-width: 428px) {
+  v-toolbar-title {
+    display: none !important;
+  }
+}
+</style>

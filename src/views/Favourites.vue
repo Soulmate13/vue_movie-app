@@ -1,15 +1,19 @@
 <template>
   <v-app>
     <v-container>
-      <h1>Favourites</h1>
-      <v-btn
-        @click="toggleMovies()"
-        v-bind:style=" displaymovies ? 'background-color: green;' : 'background-color: #121212;'"
-      >Movies</v-btn>
-      <v-btn
-        @click="toggleShows()"
-        v-bind:style=" displayshows ? 'background-color: green;' : 'background-color: #121212;'"
-      >Shows</v-btn>
+      <v-row>
+        <v-col cols="12">
+          <h1>Favourites</h1>
+          <v-btn
+            @click="toggleMovies()"
+            v-bind:style=" displaymovies ? 'background-color: #5c6bc0' : 'background-color: #121212;'"
+          >Movies</v-btn>
+          <v-btn
+            @click="toggleShows()"
+            v-bind:style=" displayshows ? 'background-color: #5c6bc0' : 'background-color: #121212;'"
+          >Shows</v-btn>
+        </v-col>
+      </v-row>
       <keep-alive>
         <app-show v-bind:shows="favshowsdata" v-if="displayshows"></app-show>
         <app-movie v-bind:movies="favmoviesdata" v-if="displaymovies"></app-movie>
