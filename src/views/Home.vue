@@ -8,7 +8,7 @@
         >Discover new movies or TV shows to watch. Save them to your list of favourites.</p>
       </v-col>
       <v-col cols="12" class="d-flex justify-center">
-        <!-- <v-img src="../assets/movie-people.png" class="image"></v-img> -->
+        <v-img src="../assets/movie-people.png" class="image"></v-img>
       </v-col>
       <v-col cols="12" class="d-flex justify-center">
         <v-btn large color="indigo lighten-1 black--text" to="/discover-movies">
@@ -38,7 +38,8 @@ export default {
 }
 
 .image {
-  max-width: 400px;
+  max-width: 450px;
+  margin-bottom: 50px;
 }
 
 @media screen and (max-width: 1199px) {
