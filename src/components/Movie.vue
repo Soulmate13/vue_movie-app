@@ -4,34 +4,37 @@
       <v-col
         xl="3"
         lg="4"
-        md="5"
-        sm="7"
+        md="6"
+        sm="6"
         cols="12"
         v-for="movie in movies"
         :key="movie.id"
         class="column"
       >
         <v-img
-          v-bind:src="'https://image.tmdb.org/t/p/w300/' + movie.poster_path"
+          v-bind:src="'https://image.tmdb.org/t/p/w300' + movie.poster_path"
           alt="poster image"
           max-width="300px"
           lazy-src="https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg"
         />
-        <h2>{{movie.original_title}}</h2>
+        <router-link class="movie-link" :to="'/movie/' + movie.id">
+          <h2>{{movie.title}}</h2>
+        </router-link>
         <p>{{movie.release_date | TransformDate}}</p>
         <v-progress-circular
-          class="rating"
+          class="rating mr-3 mb-2"
           :color="chooseColor(movie.vote_average)"
           :value="(movie.vote_average*10)"
-          size="45"
+          size="53"
           rotate="270"
         >{{movie.vote_average*10 + '%'}}</v-progress-circular>
-        <v-btn fab @click="toggleId(movie.id)" v-bind:class="isLiked(movie.id)">
+        <v-btn class="mb-2" fab @click="toggleId(movie.id)" v-bind:class="isLiked(movie.id)">
           <v-icon>mdi-heart</v-icon>
         </v-btn>
         <p v-if="movie.overview.lenghth <= 150">{{movie.overview}}</p>
         <p v-else>{{movie.overview.substring(0,150)+'...'}}</p>
       </v-col>
+      <v-col cols="12" v-if="empty">There are no movies that matched your query.</v-col>
     </v-row>
   </v-container>
 </template>
@@ -50,18 +53,20 @@ export default {
     }
   },
   created() {
-    if (localStorage.getItem("favouritemovies")) {
-      try {
-        this.favouritemovies = JSON.parse(
-          localStorage.getItem("favouritemovies")
-        );
-      } catch (e) {
-        localStorage.removeItem("favouritemovies");
-      }
+    this.checkStorage();
+    this.empty = false;
+    console.log(this.favouritemovies);
+  },
+  updated() {
+    if (this.movies.length == 0) {
+      this.empty = true;
+    } else {
+      this.empty = false;
     }
   },
   data: () => ({
-    favouritemovies: []
+    favouritemovies: [],
+    empty: Boolean
   }),
 
   filters: {
@@ -90,6 +95,18 @@ export default {
         return "#ccc";
       }
     },
+    checkStorage() {
+      if (localStorage.getItem("favouritemovies")) {
+        try {
+          this.favouritemovies = JSON.parse(
+            localStorage.getItem("favouritemovies")
+          );
+        } catch (e) {
+          localStorage.removeItem("favouritemovies");
+        }
+        console.log(this.favouritemovies);
+      }
+    },
     toggleId(_id) {
       let arrayindex = 0;
       let present = false;
@@ -106,6 +123,7 @@ export default {
           "favouritemovies",
           JSON.stringify(this.favouritemovies)
         );
+        console.log(this.favouritemovies);
       }
 
       if (present == true) {
@@ -114,6 +132,7 @@ export default {
           "favouritemovies",
           JSON.stringify(this.favouritemovies)
         );
+        this.favouritemovies;
       }
     },
     isLiked(_id) {
@@ -137,6 +156,14 @@ export default {
 </script>
 
 <style scoped>
+.movie-link {
+  text-decoration: none;
+}
+
+.air-date {
+  margin-bottom: 10px;
+}
+
 .liked {
   color: red;
 }

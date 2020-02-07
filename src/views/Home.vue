@@ -62,5 +62,10 @@ export default {
     font-size: 20px;
     padding: 0 15px;
   }
+
+  .image {
+    max-width: 300px;
+    margin-bottom: 50px;
+  }
 }
 </style>

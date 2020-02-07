@@ -5,13 +5,13 @@
         <v-col cols="12">
           <h1>Discover TV shows</h1>
         </v-col>
-        <v-col cols="12" xl="1">
+        <v-col cols="12" xl="1" lg="2" md="2" sm="3" xs="12">
           <v-select :items="years" v-model="yearnum" label="Year"></v-select>
         </v-col>
-        <v-col cols="12" xl="2">
+        <v-col cols="12" xl="2" lg="3" md="4" sm="4" xs="12">
           <v-select :items="listofgenres" v-model="genres" multiple clearable label="Genres"></v-select>
         </v-col>
-        <v-col cols="12" xl="2">
+        <v-col cols="12" xl="2" lg="3" md="4" sm="5" xs="12">
           <v-select :items="sortingcriteria" v-model="sortbyvalue" label="Other criteria"></v-select>
         </v-col>
       </v-row>

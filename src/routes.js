@@ -5,6 +5,7 @@ import DiscoverMovies from './views/DiscoverMovies.vue'
 import DiscoverShows from './views/DiscoverShows.vue'
 import SearchMovies from './views/SearchMovies.vue'
 import SearchShows from './views/SearchShows.vue'
+import SingleMovie from './views/SingleMovie.vue'
 
 export default [
     { path: '/', component: Home },
@@ -14,4 +15,5 @@ export default [
     { path: '/discover-shows', component: DiscoverShows },
     { path: '/search-movies', component: SearchMovies },
     { path: '/search-shows', component: SearchShows },
+    { path: '/movie/:id', component: SingleMovie }
 ]
