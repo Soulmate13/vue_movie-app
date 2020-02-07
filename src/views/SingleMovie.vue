@@ -89,7 +89,6 @@ export default {
     },
     fetchurl() {
       this.axios.get(this.showurl).then(response => {
-        console.log(this.response);
         this.movieinfo = response.data;
       });
     },

@@ -55,7 +55,6 @@ export default {
   created() {
     this.empty = false;
     this.checkStorage;
-    console.log(this.favouriteshows);
   },
   updated() {
     if (this.shows.length == 0) {

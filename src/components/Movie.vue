@@ -55,7 +55,6 @@ export default {
   created() {
     this.checkStorage();
     this.empty = false;
-    console.log(this.favouritemovies);
   },
   updated() {
     if (this.movies.length == 0) {
@@ -104,7 +103,6 @@ export default {
         } catch (e) {
           localStorage.removeItem("favouritemovies");
         }
-        console.log(this.favouritemovies);
       }
     },
     toggleId(_id) {
