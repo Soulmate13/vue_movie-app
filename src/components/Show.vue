@@ -53,8 +53,8 @@ export default {
     }
   },
   created() {
+    this.checkStorage();
     this.empty = false;
-    this.checkStorage;
   },
   updated() {
     if (this.shows.length == 0) {
