@@ -121,7 +121,6 @@ export default {
           "favouritemovies",
           JSON.stringify(this.favouritemovies)
         );
-        console.log(this.favouritemovies);
       }
 
       if (present == true) {
