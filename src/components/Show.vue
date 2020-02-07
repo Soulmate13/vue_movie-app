@@ -17,7 +17,9 @@
           max-width="300px"
           lazy-src="https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg"
         />
-        <h2>{{show.name}}</h2>
+        <router-link class="movie-link" :to="'/tvshow/' + show.id">
+          <h2>{{show.name}}</h2>
+        </router-link>
         <p class="air-date">{{show.first_air_date | TransformDate}}</p>
         <v-progress-circular
           class="rating mr-3 mb-2"
@@ -33,7 +35,7 @@
         <p v-else>{{show.overview.substring(0,150)+'...'}}</p>
       </v-col>
       <v-col cols="12" v-if="empty">
-        There are no movies that matched your query.
+        There are no results that matched your query.
         <v-img class="error-image" src="../assets/no-results.png"></v-img>
       </v-col>
     </v-row>
@@ -152,6 +154,10 @@ export default {
 </script>
 
 <style scoped>
+.movie-link {
+  text-decoration: none;
+}
+
 .error-image {
   max-width: 300px;
 }

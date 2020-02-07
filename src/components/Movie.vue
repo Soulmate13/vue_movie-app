@@ -34,7 +34,10 @@
         <p v-if="movie.overview.lenghth <= 150">{{movie.overview}}</p>
         <p v-else>{{movie.overview.substring(0,150)+'...'}}</p>
       </v-col>
-      <v-col cols="12" v-if="empty">There are no movies that matched your query.</v-col>
+      <v-col cols="12" v-if="empty">
+        There are no results that matched your query.
+        <v-img class="error-image" src="../assets/no-results.png"></v-img>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -153,6 +156,10 @@ export default {
 </script>
 
 <style scoped>
+.error-image {
+  max-width: 300px;
+}
+
 .movie-link {
   text-decoration: none;
 }

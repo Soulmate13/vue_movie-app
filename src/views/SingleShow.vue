@@ -8,40 +8,41 @@
         <v-col cols="12" xl="4" lg="5" offset-md="0" md="5" sm="5">
           <v-img
             class="poster"
-            v-bind:src="'https://image.tmdb.org/t/p/w780' + movieinfo.poster_path"
+            v-bind:src="'https://image.tmdb.org/t/p/w780' + showinfo.poster_path"
             lazy-src="https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg"
           ></v-img>
         </v-col>
         <v-col cols="12" xl="6" lg="7" md="7" sm="7">
-          <h1>{{movieinfo.title}}</h1>
-          <p class="tagline mb-3" v-if="movieinfo.tagline">{{movieinfo.tagline}}</p>
-          <h2 class="mb-3">{{movieinfo.release_date | TransformDate}}</h2>
+          <h1>{{showinfo.name}}</h1>
+          <h2 class="mb-3" v-if="showinfo.first_air_date">First aired on: {{showinfo.first_air_date | TransformDate}}</h2>
+          <h2 class="mb-3" v-if="showinfo.last_air_date">Last aired on: {{showinfo.last_air_date | TransformDate}}</h2>
+          <h3 class="mb-3" v-if="showinfo.number_of_seasons">Total Seasons: {{showinfo.number_of_seasons}}</h3>
           <v-progress-circular
             class="rating mr-3 mb-2"
-            :color="chooseColor(movieinfo.vote_average)"
-            :value="(movieinfo.vote_average*10)"
+            :color="chooseColor(showinfo.vote_average)"
+            :value="(showinfo.vote_average*10)"
             size="53"
             rotate="270"
-          >{{movieinfo.vote_average*10 + '%'}}</v-progress-circular>
+          >{{showinfo.vote_average*10 + '%'}}</v-progress-circular>
           <v-btn class="mb-2" fab @click="toggleId(id)" v-bind:class="isLiked(id)">
             <v-icon>mdi-heart</v-icon>
         </v-btn>
-          <p class="information mb-1" v-if="movieinfo.runtime">Runtime: {{movieinfo.runtime}} min</p>
-           <p class="information mb-2"> Genres:
+          <p class="information mb-1" v-if="showinfo.runtime">Runtime: {{showinfo.runtime}} min</p>
+           <p class="information mb-2" v-if="showinfo.genres"> Genres:
               <ul class="list">
-                  <li class="list-item" v-for="genre in movieinfo.genres" :key="genre.id">{{genre.name}}</li>
+                  <li class="list-item" v-for="genre in showinfo.genres" :key="genre.id">{{genre.name}}</li>
               </ul>
           </p>
           <p class="information">
             Overview:
             <br />
-            {{movieinfo.overview}}
+            {{showinfo.overview}}
           </p>
-          <p v-if="movieinfo.homepage">
-            <a class="link" :href="movieinfo.homepage" target="_blank">Official Website</a>
+          <p v-if="showinfo.homepage">
+            <a class="link" :href="showinfo.homepage" target="_blank">Official Website</a>
           </p>
-          <p v-if="movieinfo.imdb_id">
-            <a class="link" :href="'https://www.imdb.com/title/'+movieinfo.imdb_id" target="_blank">IMDB</a>
+          <p v-if="showinfo.imdb_id">
+            <a class="link" :href="'https://www.imdb.com/title/'+showinfo.imdb_id" target="_blank">IMDB</a>
           </p>
         </v-col>
         <v-col></v-col>
@@ -52,18 +53,18 @@
 
 <script>
 export default {
-  name: "SingleMovie",
+  name: "SingleShow",
   components: {},
   data: function() {
     return {
       id: this.$route.params.id,
-      movieinfo: {},
+      showinfo: {},
       baseurl: "https://api.themoviedb.org/3/",
-      show: "movie/",
+      show: "tv/",
       apikey: "?api_key=55a0220c1741f333a9a3a558c749b920",
       othersettings: "&language=en-US",
       showurl: "",
-      favmovies: []
+      favshows: []
     };
   },
   filters: {
@@ -92,7 +93,7 @@ export default {
     },
     fetchurl() {
       this.axios.get(this.showurl).then(response => {
-        this.movieinfo = response.data;
+        this.showinfo = response.data;
       });
     },
     chooseColor(progress) {
@@ -107,46 +108,46 @@ export default {
       }
     },
     checkStorage() {
-      if (localStorage.getItem("favouritemovies")) {
+      if (localStorage.getItem("favouriteshows")) {
         try {
-          this.favmovies = JSON.parse(
-            localStorage.getItem("favouritemovies")
+          this.favshows = JSON.parse(
+            localStorage.getItem("favouriteshows")
           );
         } catch (e) {
-          localStorage.removeItem("favouritemovies");
+          localStorage.removeItem("favouriteshows");
         }
       }
     },
     toggleId(_id) {
       let arrayindex = 0;
       let present = false;
-      for (let i = 0; i < this.favmovies.length; i++) {
-        if (_id == this.favmovies[i]) {
+      for (let i = 0; i < this.favshows.length; i++) {
+        if (_id == this.favshows[i]) {
           present = true;
           arrayindex = i;
         }
       }
 
       if (present == false) {
-        this.favmovies.push(_id);
+        this.favshows.push(_id);
         localStorage.setItem(
-          "favouritemovies",
-          JSON.stringify(this.favmovies)
+          "favouriteshows",
+          JSON.stringify(this.favshows)
         );
       }
 
       if (present == true) {
-        this.favmovies.splice(arrayindex, 1);
+        this.favshows.splice(arrayindex, 1);
         localStorage.setItem(
-          "favouritemovies",
-          JSON.stringify(this.favmovies)
+          "favouriteshows",
+          JSON.stringify(this.favshows)
         );
       }
     },
     isLiked(_id) {
       let present = false;
-      for (let i = 0; i < this.favmovies.length; i++) {
-        if (_id == this.favmovies[i]) {
+      for (let i = 0; i < this.favshows.length; i++) {
+        if (_id == this.favshows[i]) {
           present = true;
         }
       }
