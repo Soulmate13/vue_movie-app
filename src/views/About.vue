@@ -21,6 +21,11 @@
               href="https://developers.themoviedb.org/3"
               target="_blank"
             >The Movie Database (TMDb) API.</a>
+            <br />Home image
+            <a
+              class="link"
+              href="http://www.freepik.com"
+            >Designed by rawpixel.com / Freepik</a>
           </p>
         </v-col>
       </v-row>
