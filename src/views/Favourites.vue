@@ -5,12 +5,13 @@
         <v-col cols="12">
           <h1>Favourites</h1>
           <v-btn
+            class="mr-2"
             @click="toggleMovies()"
-            v-bind:style=" displaymovies ? 'background-color: #5c6bc0' : 'background-color: #121212;'"
+            v-bind:style=" displaymovies ? 'background-color: #5c6bc0' : 'background-color: #ccc;'"
           >Movies</v-btn>
           <v-btn
             @click="toggleShows()"
-            v-bind:style=" displayshows ? 'background-color: #5c6bc0' : 'background-color: #121212;'"
+            v-bind:style=" displayshows ? 'background-color: #5c6bc0' : 'background-color: #ccc;'"
           >Shows</v-btn>
         </v-col>
       </v-row>
@@ -33,22 +34,7 @@ export default {
     "app-movie": Movie
   },
   created() {
-    if (localStorage.getItem("favouriteshows")) {
-      try {
-        this.favshowids = JSON.parse(localStorage.getItem("favouriteshows"));
-      } catch (e) {
-        localStorage.removeItem("favouriteshows");
-      }
-    }
-
-    if (localStorage.getItem("favouritemovies")) {
-      try {
-        this.favmovieids = JSON.parse(localStorage.getItem("favouritemovies"));
-      } catch (e) {
-        localStorage.removeItem("favouritemovies");
-      }
-    }
-
+    this.checkStorage();
     this.fetchshows();
     this.fetchmovies();
   },
@@ -65,7 +51,9 @@ export default {
     apikey: "?api_key=55a0220c1741f333a9a3a558c749b920",
     othersettings: "&language=en-US",
     displaymovies: true,
-    displayshows: false
+    displayshows: false,
+    noshows: true,
+    nomovies: true
   }),
   methods: {
     fetchshows() {
@@ -107,6 +95,25 @@ export default {
     toggleMovies() {
       this.displayshows = false;
       this.displaymovies = true;
+    },
+    checkStorage() {
+      if (localStorage.getItem("favouriteshows")) {
+        try {
+          this.favshowids = JSON.parse(localStorage.getItem("favouriteshows"));
+        } catch (e) {
+          localStorage.removeItem("favouriteshows");
+        }
+      }
+
+      if (localStorage.getItem("favouritemovies")) {
+        try {
+          this.favmovieids = JSON.parse(
+            localStorage.getItem("favouritemovies")
+          );
+        } catch (e) {
+          localStorage.removeItem("favouritemovies");
+        }
+      }
     }
   }
 };

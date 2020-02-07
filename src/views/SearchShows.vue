@@ -5,9 +5,6 @@
         <v-col cols="12">
           <h1>Search TV Shows</h1>
         </v-col>
-        <v-col cols="12" xl="1" lg="2" md="2" sm="3" xs="12">
-          <v-select :items="years" v-model="yearnum" label="Year"></v-select>
-        </v-col>
         <v-col cols="12" xl="4" lg="5" md="6" sm="7" xs="12">
           <v-text-field
             prepend-inner-icon="search"
@@ -17,6 +14,9 @@
             clearable
             label="Title"
           ></v-text-field>
+        </v-col>
+        <v-col cols="12" xl="1" lg="2" md="2" sm="3" xs="12">
+          <v-select :items="years" v-model="yearnum" label="Year"></v-select>
         </v-col>
       </v-row>
       <app-show v-bind:shows="shows" v-bind:pages="pages"></app-show>
