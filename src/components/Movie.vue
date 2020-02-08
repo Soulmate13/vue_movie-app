@@ -20,7 +20,7 @@
         <router-link class="movie-link" :to="'/movie/' + movie.id">
           <h2>{{movie.title}}</h2>
         </router-link>
-        <p>{{movie.release_date | TransformDate}}</p>
+        <p class="air-date">{{movie.release_date | TransformDate}}</p>
         <v-progress-circular
           class="rating mr-3 mb-2"
           :color="chooseColor(movie.vote_average)"
